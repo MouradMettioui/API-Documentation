@@ -27,7 +27,12 @@ paths:
             description: 'This endpoint deletes a camera by its ID and also removes all associated video records linked to the camera''s number.'
             requestBody: {required: true, content: {application/json: {schema: {type: object, properties: {id: {type: integer, description: 'The unique ID of the camera to delete.'}}, required: [id]}}}}
             responses: {'200': {description: 'Camera and its associated videos were successfully deleted.', content: {application/json: {schema: {type: object, properties: {id: {type: integer, description: 'The unique ID of the deleted camera.'}, cameranumber: {type: string, description: 'The camera number of the deleted camera.'}, cameraname: {type: string, description: 'The name of the deleted camera.'}, available: {type: boolean, description: 'The availability status of the deleted camera.'}, position: {type: array, items: {type: number}, description: 'The position (latitude and longitude) of the deleted camera.'}}}}}}, '400': {description: 'Bad Request - Missing or invalid data.'}, '404': {description: 'Camera not found.'}, '500': {description: 'Internal server error.'}}
-
+    /api/update-camera:
+        put:
+            summary: 'Update camera availability'
+            description: 'This endpoint updates the availability status of a camera by its unique camera number.'
+            requestBody: {required: true, content: {application/json: {schema: {type: object, properties: {cameranumber: {type: string, description: 'The unique number of the camera to update.'}, available: {type: boolean, description: 'The new availability status of the camera.'}}, required: [cameranumber, available]}}}}
+            responses: {'200': {description: 'Camera availability successfully updated.', content: {application/json: {schema: {type: object, properties: {count: {type: integer, description: 'The number of records updated (should be 1 if successful).'}}}}}}, '400': {description: 'Invalid input - Missing or incorrect data.'}, '404': {description: 'Camera not found.'}, '500': {description: 'Internal server error.'}}
     '/api/videos/{cameranumber}':
         get:
             summary: 'Retrieve videos by camera number'
