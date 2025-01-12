@@ -15,6 +15,6 @@ window.onload = function() {
     ],
     layout: "StandaloneLayout"
   });
-  // modif test signed push
+  // modif test signed push -S
   //</editor-fold>
 };
